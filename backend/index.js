@@ -1,18 +1,15 @@
+const cookieSession = require("cookie-session");
 const express = require("express");
 const cors = require("cors");
-const passportSetup
-const cookieSession = require("cookie-session");
+const passportSetup = require("./passport");
 const passport = require("passport");
+const authRoute = require("./routes/auth");
 const app = express();
 
-const port = 5000;
+const port = 5000
 
 app.use(
-	cookieSession({
-		name: "session",
-		keys: ["nosiema"],
-		maxAge: 24 * 60 * 60 * 1000,
-	})
+	cookieSession({ name: "session", keys: ["login"], maxAge: 24 * 60 * 60 * 100 })
 );
 
 app.use(passport.initialize());
@@ -26,6 +23,8 @@ app.use(
 	})
 );
 
+app.use("/auth", authRoute);
+
 app.listen(port, () => {
-	console.log("Server is running. Port: " + port);
+	console.log("Server is running on port: " + port);
 });
