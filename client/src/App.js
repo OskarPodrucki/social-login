@@ -10,19 +10,19 @@ function App() {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
-		const getUser = async () => {
+		const getUser = () => {
 			fetch("http://localhost:5000/auth/login/success", {
 				method: "GET",
 				credentials: "include",
 				headers: {
-					Accept: "appliaction/json",
-					"Content-Type": "appliaction/json",
-					"Access-Control-Allow_credentails": true,
+					Accept: "application/json",
+					"Content-Type": "application/json",
+					"Access-Control-Allow-Credentials": true,
 				},
 			})
 				.then((response) => {
 					if (response.status === 200) return response.json();
-					throw new Error("authentication failed");
+					throw new Error("authentication has been failed!");
 				})
 				.then((resObject) => {
 					setUser(resObject.user);
@@ -34,7 +34,7 @@ function App() {
 		getUser();
 	}, []);
 
-	console.log(user)
+	console.log(user);
 
 	return (
 		<BrowserRouter>
